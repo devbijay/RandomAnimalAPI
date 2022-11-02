@@ -29,12 +29,7 @@ def gen_random_img(selector: List[str], limit: int) -> ImageList:
     return data
 
 
-@app.get("/")
-async def main():
-    return "Hello, Visitor, Please Use /docs to view the documentation for this api."
-
-
-@app.get("/random", response_model=ImageList)
+@app.get("/", response_model=ImageList, tags=["Get Random Image"])
 async def get_random_image(limit: int = Query(default=1, description="Number Of Random Image To Fetch", gt=0, le=10)):
     """
     Get Random Animal Images Such As Cats, Dogs Etc.
@@ -45,7 +40,7 @@ async def get_random_image(limit: int = Query(default=1, description="Number Of 
     return data
 
 
-@app.get("/random/{animal}", response_model=ImageList)
+@app.get("/random/{animal}", response_model=ImageList, tags=["Get Random Image"])
 async def get_random_image_by_animal(animal: str = Path(example="dog", description="Get Particular Animal Image"),
                                      limit: int = Query(default=1, description="Number Of Random Image To Fetch", gt=0,
                                                         le=10)):
