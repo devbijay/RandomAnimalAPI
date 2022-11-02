@@ -41,7 +41,7 @@ async def get_random_image(limit: int = Query(default=1, description="Number Of 
 
 
 @app.get("/random/{animal}", response_model=ImageList, tags=["Get Random Image"])
-async def get_random_image_by_animal(animal: str = Path(example="dog", description="Get Particular Animal Image"),
+async def get_random_image_by_animal_type(animal: str = Path(example="dog", description="Get Particular Animal Image"),
                                      limit: int = Query(default=1, description="Number Of Random Image To Fetch", gt=0,
                                                         le=10)):
     """
