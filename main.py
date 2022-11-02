@@ -1,7 +1,6 @@
 from typing import List
-
+from models import ImageList
 from fastapi import FastAPI, Query, Path
-from pydantic import BaseModel
 from data import dogs, cats
 import random
 
@@ -18,10 +17,6 @@ app = FastAPI(title="Random Animal Image API",
                   "name": "Bijay Kumar Nayak",
                   "email": "bijay6779@gmail.com"
               })
-
-
-class ImageList(BaseModel):
-    results: list[str] = []
 
 
 def gen_random_img(selector: List[str], limit: int) -> ImageList:
@@ -52,7 +47,8 @@ async def get_random_image(limit: int = Query(default=1, description="Number Of 
 
 @app.get("/random/{animal}", response_model=ImageList)
 async def get_random_image_by_animal(animal: str = Path(example="dog", description="Get Particular Animal Image"),
-                           limit: int = Query(default=1, description="Number Of Random Image To Fetch", gt=0, le=10)):
+                                     limit: int = Query(default=1, description="Number Of Random Image To Fetch", gt=0,
+                                                        le=10)):
     """
         Get Customised Animal List Such As 10 Random Dog Images.
 
